@@ -1,5 +1,4 @@
 *** Settings ***
-Library    DateTime
 Library    BuiltIn
 
 *** keywords ***
