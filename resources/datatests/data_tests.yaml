@@ -1,0 +1,8 @@
+data_open_ebay:
+  url: "https://www.ebay.com/"
+  browser: "chrome"
+  search_text: "speaker"
+data_open_amazon:
+  url: "https://www.amazon.com/"
+  browser: "chrome"
+  search_text: "speaker"
