@@ -21,5 +21,6 @@ Get tab results header
 
 Get item search results
     [Documentation]    ดึงชื่อสินค้าจากผลการค้นหาบนเว็บไซต์ Ebay
-    ${product_elements}=    common.Get text of list element    ${ebay_homepages.txt_product_name}
+    [Arguments]    ${search_text}=Speaker
+    ${product_elements}=    common.Get text of list element    ${ebay_homepages.txt_product_name}//*[contains(., "${search_text}")]
     RETURN    ${product_elements}

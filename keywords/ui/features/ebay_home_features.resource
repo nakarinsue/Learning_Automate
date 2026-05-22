@@ -18,11 +18,11 @@ Get search results header
 Get item name from search results
     [Documentation]    ดึงชื่อสินค้าจากผลการค้นหาบนเว็บไซต์ Ebay
     [Arguments]    ${search_text}
-    Wait Until Element Is Visible    xpath=${ebay_homepages.txt_product_name}    timeout=15s
-    ${count}=    Get Element Count    xpath=${ebay_homepages.txt_product_name}
+    Wait Until Element Is Visible    xpath=${ebay_homepages.txt_product_name}//*[contains(., "${search_text}")]    timeout=15s
+    ${count}=    Get Element Count    xpath=${ebay_homepages.txt_product_name}//*[contains(., "${search_text}")]
     ${product_names}=    BuiltIn.Create List
     FOR    ${i}    IN RANGE    5    ${count}    7
-        ${element}=    SeleniumLibrary.Get Webelement    xpath=(${ebay_homepages.txt_product_name})[${i} + 1]
+        ${element}=    SeleniumLibrary.Get Webelement    xpath=(${ebay_homepages.txt_product_name}//*[contains(., "${search_text}")])[${i} + 1]
         ${product_name}=    SeleniumLibrary.Get Text    ${element}
         IF    $product_name
             Append To List    ${product_names}    ${product_name}
