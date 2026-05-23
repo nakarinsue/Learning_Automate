@@ -2,7 +2,6 @@
 Resource    ${CURDIR}/../../../resources/import.resource
 
 *** keywords ***
-
 Input text and click search button
     [Documentation]    ทำการกรอกคำค้นหาลงในช่องค้นหาของเว็บไซต์ Ebay และคลิกปุ่มค้นหา
     [Arguments]    ${search_text}
@@ -15,19 +14,8 @@ Get search results header
     ${result_header}=    ebay_home_pages.Get tab results header
     common.Show contains text of element    ${search_text}    ${result_header}
 
-Get item name from search results
+Get item name results
     [Documentation]    ดึงชื่อสินค้าจากผลการค้นหาบนเว็บไซต์ Ebay
     [Arguments]    ${search_text}
-    Wait Until Element Is Visible    xpath=${ebay_homepages.txt_product_name}//*[contains(., "${search_text}")]    timeout=15s
-    ${count}=    Get Element Count    xpath=${ebay_homepages.txt_product_name}//*[contains(., "${search_text}")]
-    ${product_names}=    BuiltIn.Create List
-    FOR    ${i}    IN RANGE    5    ${count}    7
-        ${element}=    SeleniumLibrary.Get Webelement    xpath=(${ebay_homepages.txt_product_name}//*[contains(., "${search_text}")])[${i} + 1]
-        ${product_name}=    SeleniumLibrary.Get Text    ${element}
-        IF    $product_name
-            Append To List    ${product_names}    ${product_name}
-            Log to console    \nProduct ${i + 1}: ${product_name}
-            log    Product ${i + 1}: ${product_name}
-        END
-    END
+    ${product_names}=    common.Show item list from search results    ${ebay_homepages.txt_product_name}//*[contains(., "${search_text}")]
     RETURN    ${product_names}

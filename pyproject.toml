@@ -1,0 +1,6 @@
+[tool.robotidy]
+line_length = 120
+configure = [
+    "NormalizeSeparators:sections_space=1", # เว้นระยะห่างระหว่าง Section
+    "AlignSettingsSection:enabled=true"     # จัดเรียงตรงส่วน Settings ให้ตรงกัน
+]

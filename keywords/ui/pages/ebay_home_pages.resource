@@ -2,14 +2,15 @@
 Resource    ${CURDIR}/../../../resources/import.resource
 
 *** keywords ***
-
 Input text to search box
     [Documentation]    ทำการกรอกคำค้นหาลงในช่องค้นหาของเว็บไซต์ Ebay
     [Arguments]    ${search_text}
     common.Input text    ${ebay_homepages.txt_search_box}    ${search_text}
+
 Click search box
     [Documentation]    ทำการคลิกช่องค้นหาบนเว็บไซต์ Ebay
     common.Click element    ${ebay_homepages.txt_search_box}
+
 Click search button
     [Documentation]    ทำการคลิกปุ่มค้นหาบนเว็บไซต์ Ebay
     common.Click element    ${ebay_homepages.btn_search}

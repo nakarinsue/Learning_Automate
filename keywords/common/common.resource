@@ -55,28 +55,38 @@ Input text
     common.Wait for element   ${locator}    ${timeout}
     SeleniumLibrary.Input Text    ${locator}    ${text_value}    ${clear}
 
-Get text contains of element
-    [Documentation]    ทำการดึงข้อความจากองค์ประกอบบนเว็บไซต์ Ebay
-    [Arguments]    ${locator}
-    SeleniumLibrary.Wait Until Page Contains Element   ${locator}
+Get count of element
+    [Documentation]    ทำการดึงจำนวนองค์ประกอบบนเว็บไซต์
+    [Arguments]    ${locator}    ${timeout}=10s
+    common.Wait for element   ${locator}    ${timeout}
+    ${count}=    SeleniumLibrary.Get Element Count    ${locator}
+    RETURN    ${count}
+
+Get text of element
+    [Documentation]    ดึงข้อความจาก Element บนเว็บไซต์
+    [Arguments]    ${locator}    ${timeout}=10s
+    common.Wait for element   ${locator}    ${timeout}    
     ${text}=    SeleniumLibrary.Get Text    ${locator}
     RETURN    ${text}
 
-Get text of list element
-    [Documentation]    ทำการดึงข้อความจากองค์ประกอบบนเว็บไซต์ Ebay
-    [Arguments]    ${locator}
-    SeleniumLibrary.Wait Until Page Contains Element   (${locator})[1]
-    ${text}=    SeleniumLibrary.Get WebElements    ${locator}
-    RETURN    ${text}
+Get text contains of element
+    [Documentation]    ดึงข้อความจาก Element บนเว็บไซต์ที่มีข้อความบางส่วนตรงกับที่กำหนด
+    [Arguments]    ${locator}    ${expected_text}    ${timeout}=10s
+    common.Wait for element   ${locator}    ${timeout}
+    ${text}=    SeleniumLibrary.Get Text    ${locator}
+    Should Contain    ${text}    ${expected_text}
+    RETURN    ${text}  
 
-Show contains text of element
-    [Documentation]    ทำการดึงข้อความจากองค์ประกอบบนเว็บไซต์ Ebay
-    [Arguments]    ${text}    @{expected_text}
-    Should Be Equal As Strings    ${text}    @{expected_text}
-    BuiltIn.Log To Console    \nResult verification : ${result_header}
-
-Check element text
-    [Documentation]    ทำการตรวจสอบข้อความขององค์ประกอบบนเว็บไซต์ Ebay ว่าตรงกับค่าที่คาดหวังหรือไม่
-    [Arguments]    ${locator}    ${expected_text}
-    ${actual_text}=    common.Get text of element    ${locator}
-    BuiltIn.Should Be Equal As Strings    ${actual_text}    ${expected_text}
+Show item list from search results
+    [Documentation]    แสดงชื่อสินค้าทั้งหมดที่พบในผลการค้นหาบนเว็บไซต์
+    [Arguments]    ${locator}    ${digit}=${EMPTY}    ${timeout}=10s
+    ${product_names}=    BuiltIn.Create List
+    ${product_count}=    common.Get count of element    ${locator}    ${timeout}
+    FOR    ${index}    IN RANGE    1    ${product_count} + 1
+        ${product_name}=    common.Get text of element    xpath=(${locator})[${index}]${digit}    ${timeout}
+        IF    $product_name
+            Append To List    ${product_names}    ${product_name}
+            Log to console    \nProduct ${index}: ${product_name}
+        END
+    END
+    RETURN    ${product_names}

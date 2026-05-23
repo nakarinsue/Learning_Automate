@@ -7,12 +7,10 @@ Library    DateTime
 Library    BuiltIn
 Library    yaml
 
-
 # common
 Resource    ${CURDIR}/../keywords/common/common.resource
 
 # variables
-# Variables    ${CURDIR}/settings/configs.yaml
 Variables    ${CURDIR}/datatests/data_tests.yaml
 
 # locators

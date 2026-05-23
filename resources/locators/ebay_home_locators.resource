@@ -1,6 +1,3 @@
-*** Settings ***
-Resource    ${CURDIR}/../import.resource
-
 *** Variables ***
 
 &{ebay_homepages}

@@ -2,10 +2,11 @@
 __pycache__/
 *.py[cod]
 *$py.class
-
+.flake8
+.vscode/
 # C extensions
 *.so
-
+*.html
 # Distribution / packaging
 .Python
 build/
